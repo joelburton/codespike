@@ -1,0 +1,99 @@
+proposal for replit replace
+
+
+requirement:
+- we call this "codespike" because porcupines are awesome
+
+
+general principles:
+- want problems in a database [or github?] rather than in an opaque web service
+- same problem can appear in different quizzes w/o copy/pasting/maintaining dups
+- problems can have a difficulty that staff can update based on feedback
+- workflow so problems/quizzes/testcases can be hidden without having to delete
+
+
+assumptions:
+- build with backend cms [django likely]
+- use microsoft monaco for editor [lovely and matches vscode]
+- "testing" and "running" can just be eval'ing string [don't need node backend, etc]
+  - need to think through this, but feels ok to joel
+- staff for system are tech competent
+
+
+not in scope for now:
+- other languages than js  [ts wouldn't be hard, but a yagni for now]
+- doing work outside of a quiz  [this isn't mean to be a general "edit code", though it might not be hard, there are lots of other options]
+
+
+stories
+- staff can add/edit all directly [table-ish crud is fine]
+- staff can "assign" a quiz for a student, opening it to them
+- staff can see:
+  - people working on Quiz
+  - status of quiz for student
+  - see submissions for a studentquizproblem
+- students can:
+  - see quizzes assigned to them
+  - see the problems descriptions for quiz
+  - "start" a quiz
+  - "start" a problem
+  - run tests for problem
+    - get results of tests
+  - submit a problem
+    - may run other tests
+
+
+core data model: [assume rel db]
+
+    Problem
+        id
+        title
+        description [paragraph of what-it-about]
+        text [full descrip of problem in md or rst]
+        code [string of starter js]
+        solution [string of js that passes all tests]
+        explanation [descrip of solution in md or rst]
+        difficulty [1-10, rubric tbd]
+        dri
+        source [book title, web link, etc, for credit]
+        testcases: [testcase, testcase, ...]
+        notes [text staff only]
+        status [private, published, retired wflow]
+
+    Quiz: collects problems, like "pre-interview", "prework", etc
+        id
+        title
+        description
+        problems: [problem, problem, ...]
+        status [private, published, retired wflow]
+        dri
+
+    Problem-Quiz: m2m
+
+    TestCase:
+        problem
+        id
+        title
+        type ["exact-text-output", "regex-of-output", "jasmine-test-sourcecode"]
+        test [string]
+        shown [bool: does the student see this test, or is a "checked but they only on submit"]
+        status [private, published, retired wflow]
+
+    Student: data about human
+
+    StudentQuiz: m2m of student - Quiz
+        pct_correct [% passing]
+        start_at
+        due_at
+
+    StudentQuizProblem: m2m of studentquiz - problem
+        start_at
+        correct [t/f]
+
+    Submission:
+        studentquizproblem
+        id
+        code
+        comments [optional, students can add a note]
+        results [json list of pass/fail per testcase]
+        submitted_at
