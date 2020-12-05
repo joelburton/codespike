@@ -1,0 +1,27 @@
+- model: users.user
+  pk: admin
+  fields:
+    password: pbkdf2_sha256$216000$Dkx6Wpk225Yo$ZbScO17oToHtq3/roc0Ufg1c0wSWlbJ8UvfwdIRnOD4=
+    last_login: null
+    is_superuser: true
+    is_staff: true
+    is_active: true
+    date_joined: 2020-10-24 01:24:45.269142+00:00
+    first_name: ''
+    last_name: ''
+    pronunciation: ''
+    nickname: ''
+    formal_name: ''
+    pronoun: ''
+    email: admin@admin.com
+    phone: ''
+    bio: ''
+    location: ''
+    github_username: ''
+    twitter_username: ''
+    linkedin_url: ''
+    slack_userid: ''
+    photo: ''
+    notes: ''
+    groups: []
+    user_permissions: []

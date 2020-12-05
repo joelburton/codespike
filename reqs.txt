@@ -86,7 +86,7 @@ core data model: [assume rel db]
         start_at
         due_at
 
-    StudentQuizProblem: m2m of studentquiz - problem
+    StudentProblem: m2m of student - problem
         start_at
         correct [t/f]
 
