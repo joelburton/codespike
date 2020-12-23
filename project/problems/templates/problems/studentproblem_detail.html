@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h1>{{ object.problem.title }}</h1>
+  <p>Press F1 and choose "Test My Code"</p>
+  <div id="container" style="height:400px;width:600px;border:1px solid black;"></div>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine.js"></script>#}
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/jasmine-html.js"></script>#}
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+  <script>
+  let problemCode = `{{ object.problem.code }}`;
+  let onlyTestCode = `{{ object.problem.testcase_set.first.test|safe }}`;
+  {#let fakeTests = [  function() { it("should blah", function() { alert("yo")}) } ];#}
+  </script>
+    <script src="{% static 'problem.js' %}"></script>
+{#  <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.6.0/boot.js"></script>#}
+
+{% endblock %}

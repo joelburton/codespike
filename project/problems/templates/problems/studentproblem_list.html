@@ -5,7 +5,7 @@
   <ul>
   {% for sp in object_list %}
   <li>
-    <a href="{{ object.get_absolute_url }}">{{ sp.problem.title }}</a>
+    <a href="{{ sp.get_absolute_url }}">{{ sp.problem.title }}</a>
   </li>
   {% endfor %}
   </ul>

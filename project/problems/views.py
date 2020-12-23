@@ -11,3 +11,9 @@ class MyProblemsView(generic.ListView):
         # return StudentProblem.objects.filter(student=self.request.user).all()
         return StudentProblem.objects.all()
 
+
+class MyProblemDetailView(generic.DetailView):
+    template_name = "problems/studentproblem_detail.html"
+
+    def get_queryset(self):
+        return StudentProblem.objects.all()

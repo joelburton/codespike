@@ -1,5 +1,6 @@
 from django.core import validators
 from django.db import models
+from django.urls import reverse
 from model_utils.models import TimeStampedModel
 
 from core.models import StaffOnlyNotesModel, WorkflowModel
@@ -122,6 +123,9 @@ class StudentProblem(StaffOnlyNotesModel, TimeStampedModel, models.Model):
 
     class Meta:
         unique_together = ['student', 'problem']
+
+    def get_absolute_url(self):
+        return reverse("problem-detail", kwargs={"pk": self.id})
 
 
 class StudentProblemSubmission(TimeStampedModel, models.Model):
